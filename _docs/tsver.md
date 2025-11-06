@@ -1,11 +1,21 @@
 ---
 layout: archive
-title: "TSVer Explorer"
+title: ""
 permalink: /
 author_profile: false
 classes: [wide, tsver-page]
 ---
 
+
+<style>
+  .tsver-page {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  .archive {
+    float: left !important;
+  }
+</style>
 
 
 <div id="tsver" class="tsver">
@@ -25,9 +35,6 @@ classes: [wide, tsver-page]
 
       <dt>Publisher</dt>
       <dd id="tsver-publisher"></dd>
-
-      <dt>URL</dt>
-      <dd><a id="tsver-url" href="#" rel="noopener" target="_blank"></a></dd>
 
       <!-- Time series will be injected here -->
       <dt>Time series</dt>

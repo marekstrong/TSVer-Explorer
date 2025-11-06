@@ -93,21 +93,6 @@
 	},
 	{
 		"category": "Environment",
-		"filename": "global-warming-annual-temperature-anomaly.csv",
-		"url": "",
-		"select_columns": {
-			"location": "Entity",
-			"date": "Year",
-			"data": "Global average temperature anomaly relative to 1861-1890"
-		},
-		"details": {
-			"title": "Global warming: annual temperature anomaly",
-			"description": "The difference in average land-sea surface temperature compared to the 1861-1890 mean, in degrees Celsius.",
-			"unit": "°C"
-		}
-	},
-	{
-		"category": "Environment",
 		"filename": "annual-surface-temperature.csv",
 		"url": "https://ourworldindata.org/grapher/average-monthly-surface-temperature.csv?v=1&csvType=full&useColumnShortNames=true",
 		"select_columns": {
@@ -570,7 +555,7 @@
 		"select_columns": {
 			"location": "Code",
 			"date": "Year",
-			"data": "life_expectancy_0__sex_total__age_0"
+			"data": "life_expectancy_0"
 		},
 		"details": {
 			"title": "Life expectancy",
@@ -623,6 +608,142 @@
 			"unit": "% of women"
 		}
 	},
+    {
+        "category": "Health",
+        "filename": "share-disagree-vaccines-are-safe-wellcome-trust.csv",
+        "url": "https://ourworldindata.org/grapher/share-disagree-vaccines-are-safe-wellcome-trust.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "disagree__question_safe"
+        },
+        "details": {
+            "title": "Share that disagrees that vaccines are safe",
+            "description": "The share of respondents who responded 'strongly disagree' or 'somewhat disagree' to the statement 'Vaccines are safe.'",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 118,
+            "min_year": 2015,
+            "max_year": 2025
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Health",
+        "filename": "share-agree-vaccines-are-safe-wellcome.csv",
+        "url": "https://ourworldindata.org/grapher/share-agree-vaccines-are-safe-wellcome.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "agree__question_safe"
+        },
+        "details": {
+            "title": "Share that agrees that vaccines are safe",
+            "description": "The share of respondents who said they 'strongly agree' or 'tend to agree' with the statement vaccines are safe.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 118,
+            "min_year": 2015,
+            "max_year": 2025
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Health",
+        "filename": "share-who-agree-vaccines-are-effective.csv",
+        "url": "https://ourworldindata.org/grapher/share-who-agree-vaccines-are-effective.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "agree__question_effective"
+        },
+        "details": {
+            "title": "Share who agree vaccines are effective",
+            "description": "The share of respondents who said they 'strongly agree' or 'tend to agree' with the statement vaccines are effective.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 118,
+            "min_year": 2015,
+            "max_year": 2025
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Health",
+        "filename": "share-disagrees-vaccines-are-effective.csv",
+        "url": "https://ourworldindata.org/grapher/share-disagrees-vaccines-are-effective.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "disagree__question_effective"
+        },
+        "details": {
+            "title": "Share that disagrees that vaccines are effective",
+            "description": "The share of people who responded 'strongly disagree' or 'somewhat disagree' to the statement 'Vaccines are effective'.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 118,
+            "min_year": 2015,
+            "max_year": 2025
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Health",
+        "filename": "number-of-tuberculosis-cases.csv",
+        "url": "https://ourworldindata.org/grapher/number-of-tuberculosis-cases.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "e_inc_num"
+        },
+        "details": {
+            "title": "Tuberculosis cases",
+            "description": "The estimated number of new and relapse tuberculosis cases arising in a given year. All forms of the disease are included, including cases in people living with HIV.",
+            "unit": "cases"
+        },
+        "meta": {
+            "countries_with_data": 215,
+            "min_year": 2000,
+            "max_year": 2023
+        }
+    },
+    {
+        "category": "Health",
+        "filename": "deaths-in-armed-conflicts-by-country.csv",
+        "url": "https://ourworldindata.org/grapher/deaths-in-armed-conflicts-by-country.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "number_deaths_ongoing_conflicts__conflict_type_all"
+        },
+        "details": {
+            "title": "Deaths in armed conflicts based on where they occurred",
+            "description": "Reported deaths of combatants and civilians due to fighting in armed conflicts. Deaths due to disease and starvation resulting from the conflict are not included. Data for 2025 is incomplete and includes deaths within the first half of the year.",
+            "unit": "deaths"
+        },
+        "meta": {
+            "countries_with_data": 196,
+            "min_year": 1989,
+            "max_year": 2025
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1418,6 +1539,87 @@
             "max_year": 2022
         }
     },
+    {
+        "category": "Agriculture",
+        "filename": "forest-area-as-share-of-land-area.csv",
+        "url": "https://ourworldindata.org/grapher/forest-area-as-share-of-land-area.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "forest_share"
+        },
+        "details": {
+            "title": "Share of land covered by forest",
+            "description": "The share of land area covered by forest, including both natural forests and forest plantations. Forest area includes land with natural or planted groups of trees at least five meters tall, excluding those in agricultural systems.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 233,
+            "min_year": 1000,
+            "max_year": 2020
+        },
+        "allow_agg": false
+    },
+    {
+        "category": "Agriculture",
+        "filename": "land-use--cropland-area.csv",
+        "url": "https://ourworldindata.org/grapher/land-use.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "cropland__00006620__area__005110__hectares"
+        },
+        "details": {
+            "title": "Cropland area",
+            "description": "",
+            "unit": "hectares"
+        },
+        "meta": {
+            "countries_with_data": 223,
+            "min_year": 1961,
+            "max_year": 2022
+        }
+    },
+    {
+        "category": "Agriculture",
+        "filename": "land-use--agricultural-land-use.csv",
+        "url": "https://ourworldindata.org/grapher/land-use.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "agricultural_land__00006610__area__005110__hectares"
+        },
+        "details": {
+            "title": "Agricultural land use",
+            "description": "Land used for cultivation of crops and animal husbandry. The total of areas under cropland and permanent meadows and pastures.",
+            "unit": "hectares"
+        },
+        "meta": {
+            "countries_with_data": 226,
+            "min_year": 1961,
+            "max_year": 2022
+        }
+    },
+    {
+        "category": "Agriculture",
+        "filename": "number-of-farms.csv",
+        "url": "https://ourworldindata.org/grapher/number-of-farms.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "all_sizes_number"
+        },
+        "details": {
+            "title": "all_sizes_number",
+            "description": "This data is based on the latest available agricultural census for each country. This year varies by country.",
+            "unit": ""
+        },
+        "meta": {
+            "countries_with_data": 111,
+            "min_year": 1987,
+            "max_year": 2005
+        }
+    },
 
 
 
@@ -1953,27 +2155,6 @@
     },
     {
         "category": "Economy",
-        "filename": "public-healthcare-spending-share-gdp.csv",
-        "url": "https://ourworldindata.org/grapher/public-healthcare-spending-share-gdp.csv?v=1&csvType=full&useColumnShortNames=true",
-        "select_columns": {
-            "location": "Code",
-            "date": "Year",
-            "data": "sh_xpd_ghed_gd_zs"
-        },
-        "details": {
-            "title": "Domestic general government health expenditure (% of GDP)",
-            "description": "Domestic general government expenditure on health from domestic sources, expressed as a share of GDP.",
-            "unit": "% of GDP"
-        },
-        "meta": {
-            "countries_with_data": 190,
-            "min_year": 2000,
-            "max_year": 2022
-        },
-        "allow_agg": true
-    },
-    {
-        "category": "Economy",
         "filename": "hiv-expenditure.csv",
         "url": "https://ourworldindata.org/grapher/hiv-expenditure.csv?v=1&csvType=full&useColumnShortNames=true",
         "select_columns": {
@@ -2107,7 +2288,7 @@
         },
         "details": {
             "title": "Public spending on education as a share of GDP",
-            "description": "Total annual [general government](#dod:general-government) spending on all levels of education, expressed as a percentage of [GDP](#dod:gdp).",
+            "description": "Total annual general government spending on all levels of education, expressed as a percentage of GDP.",
             "unit": "% of GDP"
         },
         "meta": {
@@ -2199,6 +2380,407 @@
         },
         "allow_agg": true
     },
+    {
+        "category": "Economy",
+        "filename": "gdp-per-capita-growth.csv",
+        "url": "https://ourworldindata.org/grapher/gdp-per-capita-growth.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "ny_gdp_pcap_kd_zg"
+        },
+        "details": {
+            "title": "GDP per capita growth (annual %)",
+            "description": "This data is adjusted for inflation.",
+            "unit": "annual %"
+        },
+        "meta": {
+            "countries_with_data": 211,
+            "min_year": 1961,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "labor-share-of-gdp.csv",
+        "url": "https://ourworldindata.org/grapher/labor-share-of-gdp.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "_10_4_1__sl_emp_gtotl"
+        },
+        "details": {
+            "title": "Labor share of gross domestic product (GDP)",
+            "description": "The labor share of gross domestic product (GDP) is the estimated total compensation of employees given as a percent of GDP. It provides information about the relative share of output paid as compensation to employees, compared to the share paid to capital.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 186,
+            "min_year": 2004,
+            "max_year": 2020
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "unemployment-rate.csv",
+        "url": "https://ourworldindata.org/grapher/unemployment-rate.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "sl_uem_totl_zs"
+        },
+        "details": {
+            "title": "Unemployment rate (modeled ILO estimate)",
+            "description": "Unemployment refers to the share of the labor force that is without work but available for and seeking employment. This data is part of the ILO Modelled Estimates series. This series combines nationally reported observations with imputed data to have a harmonized, internationally comparable dataset and produce regional and global aggregates. This data is classified according to the 13th International Classification of Labour Statistics (ICLS), where employment includes anyone engaged for at least one hour per day in the production of goods and services, even for own use by the household or family, volunteering, or other forms of unpaid work.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 186,
+            "min_year": 1991,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Unemployment",
+        "filename": "unemployment-rates-in-selected-oecd-countries-.csv",
+        "url": "https://ourworldindata.org/grapher/unemployment-rates-in-selected-oecd-countries-.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "Unemployment rate (%)"
+        },
+        "details": {
+            "title": "Unemployment rates in selected OECD countries",
+            "description": "Share of the labor force without work, but actively looking for a job and available to start soon. Some early data points come from David R Howell, Dean Baker, Andrew Glyn, and John Schmitt. 2007. ‘Are Protective Labor Market Institutions at the Root of Unemployment? A Critical Review of the Evidence’. Capitalism and Society 2 (1) (January). These early data points measure averages in the consecutive 5 years.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 19,
+            "min_year": 1955,
+            "max_year": 2020
+        },
+        "allow_agg": false
+    },
+    {
+        "category": "Economy",
+        "filename": "gdp-per-capita-in-international-and-market-dollars--gdp-per-capita-(market).csv",
+        "url": "https://ourworldindata.org/grapher/gdp-per-capita-in-international-and-market-dollars.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "ny_gdp_pcap_kd"
+        },
+        "details": {
+            "title": "GDP per capita (Market dollars)",
+            "description": "Average economic output per person in a country or region per year. This data is adjusted by inflation but does not account for differences in living costs between countries.",
+            "unit": "constant 2015 US$"
+        },
+        "meta": {
+            "countries_with_data": 209,
+            "min_year": 1960,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "gdp-per-capita-in-international-and-market-dollars--gdp-per-capita-(international).csv",
+        "url": "https://ourworldindata.org/grapher/gdp-per-capita-in-international-and-market-dollars.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "ny_gdp_pcap_pp_kd"
+        },
+        "details": {
+            "title": "GDP per capita (International dollars, PPP)",
+            "description": "Average economic output per person in a country or region per year. This data is adjusted for inflation and differences in living costs between countries.",
+            "unit": "international-$ in 2021 prices"
+        },
+        "meta": {
+            "countries_with_data": 197,
+            "min_year": 1960,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "unemployment-rate-of-males-vs-females--unemployment,-male-(%-of-male-labor-force).csv",
+        "url": "https://ourworldindata.org/grapher/unemployment-rate-of-males-vs-females.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "sl_uem_totl_ma_zs"
+        },
+        "details": {
+            "title": "Unemployment, male (% of male labor force)",
+            "description": "Unemployment refers to the share of the labor force that is without work but available for and seeking employment.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 186,
+            "min_year": 1991,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "unemployment-rate-of-males-vs-females--unemployment,-female-(%-of-female-labor-force).csv",
+        "url": "https://ourworldindata.org/grapher/unemployment-rate-of-males-vs-females.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "sl_uem_totl_fe_zs"
+        },
+        "details": {
+            "title": "Unemployment, female (% of female labor force)",
+            "description": "Unemployment refers to the share of the labor force that is without work but available for and seeking employment.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 186,
+            "min_year": 1991,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "public-health-expenditure-share-gdp.csv",
+        "url": "https://ourworldindata.org/grapher/public-health-expenditure-share-gdp.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "share_gdp"
+        },
+        "details": {
+            "title": "Government health spending as a share of GDP",
+            "description": "Public health expenditure divided by gross domestic product, expressed as a percentage. This metric captures spending on government funded health care systems and social health insurance, as well as compulsory health insurance.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 52,
+            "min_year": 1880,
+            "max_year": 2024
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "public-healthcare-spending-share-gdp.csv",
+        "url": "https://ourworldindata.org/grapher/public-healthcare-spending-share-gdp.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "sh_xpd_ghed_gd_zs"
+        },
+        "details": {
+            "title": "Public healthcare spending as a share of GDP",
+            "description": "Domestic general government expenditure on health from domestic sources, expressed as a share of GDP.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 190,
+            "min_year": 2000,
+            "max_year": 2022
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "annual-growth-of-exports-of-goods-and-services.csv",
+        "url": "https://ourworldindata.org/grapher/annual-growth-of-exports-of-goods-and-services.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "_17_13_1__ne_exp_gnfs_kd_zg"
+        },
+        "details": {
+            "title": "Annual growth of exports of goods and services",
+            "description": "Exports of goods and services represent the value of all goods and other market services provided to the rest of the world.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 170,
+            "min_year": 2000,
+            "max_year": 2022
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "exports-of-goods-and-services-constant-2010-us.csv",
+        "url": "https://ourworldindata.org/grapher/exports-of-goods-and-services-constant-2010-us.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "ne_exp_gnfs_kd"
+        },
+        "details": {
+            "title": "Value of exported goods and services",
+            "description": "Exports of goods and services represent the value of all goods and other market services provided to the rest of the world. This is adjusted for inflation and shown in constant 2015 U.S. dollars.",
+            "unit": "constant 2015 US$"
+        },
+        "meta": {
+            "countries_with_data": 184,
+            "min_year": 1960,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "military-spending-sipri.csv",
+        "url": "https://ourworldindata.org/grapher/military-spending-sipri.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "constant_usd"
+        },
+        "details": {
+            "title": "Military spending",
+            "description": "Includes military and civil personnel, operation and maintenance, procurement, military research and development, infrastructure, and aid. This data is expressed in US dollars and adjusted for inflation.",
+            "unit": "constant 2023 US$"
+        },
+        "meta": {
+            "countries_with_data": 162,
+            "min_year": 1949,
+            "max_year": 2024
+        }
+    },
+    {
+        "category": "Economy",
+        "filename": "labor-productivity-per-hour-pennworldtable.csv",
+        "url": "https://ourworldindata.org/grapher/labor-productivity-per-hour-pennworldtable.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "productivity"
+        },
+        "details": {
+            "title": "Productivity: output per hour worked",
+            "description": "Productivity is calculated as GDP divided by the total number of hours worked in the economy. This data is adjusted for inflation and differences in living costs between countries.",
+            "unit": "international-$ in 2021 prices per hour"
+        },
+        "meta": {
+            "countries_with_data": 69,
+            "min_year": 1950,
+            "max_year": 2023
+        }
+    },
+    {
+        "category": "Economy",
+        "filename": "annual-working-hours-per-worker-vs-gdp-per-capita-long-run.csv",
+        "url": "https://ourworldindata.org/grapher/annual-working-hours-per-worker-vs-gdp-per-capita-long-run.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "working_hours_omm"
+        },
+        "details": {
+            "title": "Annual working hours per worker",
+            "description": "Average working hours per worker in a given year.",
+            "unit": "hours per worker"
+        },
+        "meta": {
+            "countries_with_data": 69,
+            "min_year": -9000,
+            "max_year": 2023
+        }
+    },
+    {
+        "category": "Economy",
+        "filename": "annual-working-hours-per-person-employed.csv",
+        "url": "https://ourworldindata.org/grapher/annual-working-hours-per-person-employed.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "Subject:Average hours worked per person employed - PDB_LV"
+        },
+        "details": {
+            "title": "Annual working hours per person employed",
+            "description": "Regular hours worked by full-time and part-time workers, paid and unpaid overtime, hours worked in additional jobs, and time not worked because of public holidays, annual paid leave, strikes and labour disputes, and other reasons.",
+            "unit": "Hours"
+        },
+        "meta": {
+            "countries_with_data": 37,
+            "min_year": 1970,
+            "max_year": 2017
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "average-hourly-earnings.csv",
+        "url": "https://ourworldindata.org/grapher/average-hourly-earnings.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "average_hourly_earnings_employees_by_sex__sex_total__classif1_currency__2021_ppp_dollar"
+        },
+        "details": {
+            "title": "Average hourly earnings of employees",
+            "description": "Earnings are defined as in-cash and in-kind payments to employees at regular intervals for time worked or work done together with remuneration for time not worked, such as annual vacation, other paid leave, or holidays. This data is adjusted for inflation and differences in living costs between countries.",
+            "unit": "international-$ at 2021 prices"
+        }
+    },
+    {
+        "category": "Economy",
+        "filename": "foreign-aid-given-as-a-share-of-national-income.csv",
+        "url": "https://ourworldindata.org/grapher/foreign-aid-given-as-a-share-of-national-income.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "oda_official_estimate_share_gni"
+        },
+        "details": {
+            "title": "Foreign aid given as a share of national income",
+            "description": "Official development assistance (ODA) divided by gross national income. From 2018, the official reporting method switched from net to grant-equivalent amounts.",
+            "unit": "% of GNI"
+        },
+        "meta": {
+            "countries_with_data": 50,
+            "min_year": 1960,
+            "max_year": 2023
+        },
+        "allow_agg": true
+    },
+    {
+        "category": "Economy",
+        "filename": "research-spending-gdp.csv",
+        "url": "https://ourworldindata.org/grapher/research-spending-gdp.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "gb_xpd_rsdv_gd_zs"
+        },
+        "details": {
+            "title": "Research & development spending as a share of GDP",
+            "description": "Includes basic research, applied research, and experimental development.",
+            "unit": "% of GDP"
+        },
+        "meta": {
+            "countries_with_data": 150,
+            "min_year": 1996,
+            "max_year": 2022
+        },
+        "allow_agg": true
+    },
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2285,7 +2867,7 @@
         },
         "details": {
             "title": "Share of students achieving minimum reading proficiency by the end of lower secondary education",
-            "description": "Percentage of students at [lower secondary](#dod:lower-secondary-education) school age meeting minimum reading proficiency by the end of [lower secondary](#dod:lower-secondary-education) education. This data omits children who don't attend school.",
+            "description": "Percentage of students at lower secondary school age meeting minimum reading proficiency by the end of lower secondary education. This data omits children who don't attend school.",
             "unit": "%"
         },
         "meta": {
@@ -2327,7 +2909,7 @@
         },
         "details": {
             "title": "Share of students achieving minimum reading proficiency by the end of primary education",
-            "description": "Percentage of students at [primary](#dod:primary-education) school age meeting minimum reading proficiency by the end of [primary](#dod:primary-education) education. This data omits children who don't attend school.",
+            "description": "Percentage of students at primary school age meeting minimum reading proficiency by the end of primary education. This data omits children who don't attend school.",
             "unit": "%"
         },
         "meta": {
@@ -3329,6 +3911,47 @@
             "min_year": -9000,
             "max_year": 2024
         }
+    },
+    {
+        "category": "Energy",
+        "filename": "nuclear-energy-generation.csv",
+        "url": "https://ourworldindata.org/grapher/nuclear-energy-generation.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "nuclear_generation__twh"
+        },
+        "details": {
+            "title": "Electricity generation from nuclear",
+            "description": "Measured in terawatt-hours.",
+            "unit": "terawatt-hours"
+        },
+        "meta": {
+            "countries_with_data": 212,
+            "min_year": 1965,
+            "max_year": 2024
+        }
+    },
+    {
+        "category": "Energy",
+        "filename": "share-electricity-nuclear.csv",
+        "url": "https://ourworldindata.org/grapher/share-electricity-nuclear.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "nuclear_share_of_electricity__pct"
+        },
+        "details": {
+            "title": "Share of electricity production from nuclear",
+            "description": "Measured as a percentage of total electricity produced in the country or region.",
+            "unit": "%"
+        },
+        "meta": {
+            "countries_with_data": 209,
+            "min_year": 1985,
+            "max_year": 2024
+        },
+        "allow_agg": true
     },
 
 
@@ -5058,7 +5681,7 @@
     },
     {
         "category": "Other",
-        "filename": "deaths-from-terrorism-by-target--deaths-from-terrorism,-by-target-(private-citizens-&-property).csv",
+        "filename": "deaths-from-terrorism-by-target--deaths-from-terrorism,-by-target-(private-citizens-property).csv",
         "url": "https://ourworldindata.org/grapher/deaths-from-terrorism-by-target.csv?v=1&csvType=full&useColumnShortNames=true",
         "select_columns": {
             "location": "Code",
@@ -5293,6 +5916,86 @@
         "meta": {
             "countries_with_data": 221,
             "min_year": 1990,
+            "max_year": 2022
+        }
+    },
+    {
+        "category": "Other",
+        "filename": "reported-cases-of-measles.csv",
+        "url": "https://ourworldindata.org/grapher/reported-cases-of-measles.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "measles__number_of_reported_cases"
+        },
+        "details": {
+            "title": "Reported cases of measles",
+            "description": "Confirmed measles cases, including those confirmed clinically, epidemiologically, or by laboratory investigation. Cases that have been discarded following laboratory investigation should not be included.",
+            "unit": "Cases"
+        },
+        "meta": {
+            "countries_with_data": 212,
+            "min_year": 1974,
+            "max_year": 2023
+        }
+    },
+    {
+        "category": "Other",
+        "filename": "number-of-deaths-who.csv",
+        "url": "https://ourworldindata.org/grapher/number-of-deaths-who.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "death_count__age_group_allages__sex_both_sexes__cause_all_causes"
+        },
+        "details": {
+            "title": "Number of deaths",
+            "description": "Estimated number of deaths from all causes in both sexes.",
+            "unit": "deaths"
+        },
+        "meta": {
+            "countries_with_data": 194,
+            "min_year": 2000,
+            "max_year": 2021
+        }
+    },
+    {
+        "category": "Other",
+        "filename": "sovereign-state-butcher-griffiths.csv",
+        "url": "https://ourworldindata.org/grapher/sovereign-state-butcher-griffiths.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "is_present"
+        },
+        "details": {
+            "title": "Sovereign State (Source: Butcher and Griffiths)",
+            "description": "Sovereign states as identified by Butcher and Griffiths (2020). Only countries that are independent today are shown in the map. Current country borders are used across time.",
+            "unit": "Yes/No"
+        },
+        "meta": {
+            "countries_with_data": 194,
+            "min_year": 1816,
+            "max_year": 2022
+        }
+    },
+    {
+        "category": "Other",
+        "filename": "sovereign-state-cow.csv",
+        "url": "https://ourworldindata.org/grapher/sovereign-state-cow.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "is_present"
+        },
+        "details": {
+            "title": "Sovereign State (Source: Correlates of War)",
+            "description": "Sovereign states as identified by Correlates of War (2017). Only countries that are independent today are shown in the map. Current country borders are used across time.",
+            "unit": "Yes/No"
+        },
+        "meta": {
+            "countries_with_data": 194,
+            "min_year": 1816,
             "max_year": 2022
         }
     },
@@ -6617,6 +7320,21 @@
             "countries_with_data": 199,
             "min_year": 1851,
             "max_year": 2023
+        }
+    },
+    {
+        "category": "Annual temperature anomalies relative to the pre-industrial period",
+        "filename": "global-warming-annual-temperature-anomaly.csv",
+        "url": "https://ourworldindata.org/grapher/temperature-anomaly.csv?v=1&csvType=full&useColumnShortNames=true",
+        "select_columns": {
+            "location": "Code",
+            "date": "Year",
+            "data": "near_surface_temperature_anomaly"
+        },
+        "details": {
+            "title": "Annual temperature anomalies relative to the pre-industrial period",
+            "description": "The difference in average land-sea surface temperature compared to the 1861-1890 mean, in degrees Celsius.",
+            "unit": "°C"
         }
     }
 

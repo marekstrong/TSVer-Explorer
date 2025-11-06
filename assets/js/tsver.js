@@ -11,10 +11,10 @@ permalink: /assets/js/tsver.js
  *   - Series metadata list:   {{ '/assets/js/sources.json' | absolute_url }}  ([{category, filename, details:{title, description, unit}, ...}, ...])
  */
 
-const DATA_URL           = "{{ '/assets/data/tsver.jsonl' | absolute_url }}";
-const TS_BASE            = "{{ '/assets/data/tseries-processed' | absolute_url }}";
-const COUNTRY_CODES_URL  = "{{ '/assets/data/country_codes.json' | absolute_url }}";
-const SOURCES_META_URL   = "{{ '/assets/data/sources.json' | absolute_url }}";
+const DATA_URL           = "{{ '/assets/data/tsver.jsonl' | relative_url }}";
+const TS_BASE            = "{{ '/assets/data/tseries-processed' | relative_url }}";
+const COUNTRY_CODES_URL  = "{{ '/assets/data/country_codes.json' | relative_url }}";
+const SOURCES_META_URL   = "{{ '/assets/data/sources.json' | relative_url }}";
 
 document.addEventListener('DOMContentLoaded', () => {
   // ====== Category probing ======
@@ -151,14 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ====== Plotting helpers ======
   function buildCountryPicker(allNames, onChange, initialSelection) {
     const wrapper = el('div', { class: 'tsver-picker' });
-    const select = el('select', { multiple: 'multiple', size: Math.min(10, Math.max(4, allNames.length)) });
+    const select = el('select', { multiple: 'multiple', size: Math.min(7, Math.max(4, allNames.length)) });
     allNames.forEach(n => {
       const opt = el('option', { value: n });
       opt.textContent = n;
       if (initialSelection && initialSelection.has(n)) opt.selected = true;
       select.appendChild(opt);
     });
-    const help = el('div', { class: 'tsver-picker-help' }, 'Tip: Hold Ctrl/Cmd to select multiple countries');
+    const help = el('div', { class: 'tsver-picker-help' }, 'Hold Ctrl/Cmd to select multiple countries');
     select.addEventListener('change', () => {
       const chosen = new Set(Array.from(select.selectedOptions).map(o => o.value));
       onChange(chosen);
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return { root: wrapper, select };
   }
 
-  function chooseDefaultCountries(cols, rows, max = 8) {
+  function chooseDefaultCountries(cols, rows, max = 4) {
     const scored = cols.map(c => {
       let nonEmpty = 0;
       for (const r of rows) {
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })(cols);
 
       // Defaults and alphabetized picker list
-      const defaultNames = chooseDefaultCountries(cols, rows, 8);
+      const defaultNames = chooseDefaultCountries(cols, rows, 4);
       const collator = new Intl.Collator(undefined, { sensitivity: 'base' });
       const allNames = cols.map(c => c.name).sort(collator.compare);
 

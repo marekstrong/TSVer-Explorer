@@ -19,6 +19,11 @@ classes: [wide, tsver-page]
 
 
 <div id="tsver" class="tsver">
+  <div id="tsver-dataset-links" style="display:flex; justify-content:flex-start; gap:1rem; margin-bottom:1rem; padding:0.5rem 0;">
+    <span id="tsver-test-link" style="cursor:pointer; padding:0.5rem 1rem; border-radius:6px; font-weight:500; transition:all 0.2s;" data-dataset="test">Test Set</span>
+    <span id="tsver-dev-link" style="cursor:pointer; padding:0.5rem 1rem; border-radius:6px; font-weight:500; transition:all 0.2s;" data-dataset="dev">Dev Set</span>
+  </div>
+
   <div id="tsver-status" aria-live="polite">Loading dataset…</div>
 
   <article id="tsver-card" style="display:none">
@@ -83,7 +88,37 @@ classes: [wide, tsver-page]
 .tsver-series-controls { margin: .25rem 0 .5rem 0; display:flex; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
 .tsver-picker select { min-width: 220px; }
 .tsver-picker-help { font-size: .85em; opacity: .7; margin-top:.25rem; }
+#tsver-dataset-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+}
+#tsver-test-link, #tsver-dev-link {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+#tsver-test-link:hover, #tsver-dev-link:hover {
+  background-color: #f3f4f6;
+}
+#tsver-test-link.active, #tsver-dev-link.active {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
 @media (prefers-color-scheme: dark) {
   .tsver-series-card { background: #111418; border-color: #2a2f36; }
+  #tsver-test-link:hover, #tsver-dev-link:hover {
+    background-color: #374151;
+  }
+  #tsver-test-link.active, #tsver-dev-link.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+  }
 }
 </style>

@@ -6,50 +6,61 @@ permalink: /assets/js/tsver.js
  * TSVer – dataset browser with Plotly charts + series metadata
  * Data files:
  *   - JSONL records:  {{ '/assets/data/tsver.jsonl' | absolute_url }}
- *   - Time series CSVs under: {{ '/assets/data/tseries-processed' | absolute_url }}/<Folder>/<Series>.csv
- *   - Country code mapping:   {{ '/assets/data/country_codes.json' | absolute_url }} ({"country2code": {"Aruba":"country/ABW", ...}})
- *   - Series metadata list:   {{ '/assets/js/sources.json' | absolute_url }}  ([{category, filename, details:{title, description, unit}, ...}, ...])
+ *   - Time series CSVs under: {{ '/assets/data/time_series/csv' | absolute_url }}/<Series>.csv
+ *   - Country code mapping:   {{ '/assets/data/time_series/country_codes.yaml' | absolute_url }}
+ *   - Series metadata:        {{ '/assets/data/time_series/metadata.json' | absolute_url }}
  */
 
-const DATA_URL           = "{{ '/assets/data/tsver.jsonl' | relative_url }}";
-const TS_BASE            = "{{ '/assets/data/tseries-processed' | relative_url }}";
-const COUNTRY_CODES_URL  = "{{ '/assets/data/country_codes.json' | relative_url }}";
-const SOURCES_META_URL   = "{{ '/assets/data/sources.json' | relative_url }}";
+const TS_BASE            = "{{ '/assets/data/time_series/csv' | relative_url }}";
+const COUNTRY_CODES_URL  = "{{ '/assets/data/time_series/country_codes.yaml' | relative_url }}";
+const SOURCES_META_URL   = "{{ '/assets/data/time_series/metadata.json' | relative_url }}";
+
+// Dataset configuration
+const DATASETS = {
+  test: {
+    url: "{{ '/assets/data/tsver_test.jsonl' | relative_url }}",
+    name: "Test Set"
+  },
+  dev: {
+    url: "{{ '/assets/data/tsver_dev.jsonl' | relative_url }}",
+    name: "Dev Set"
+  }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ====== Category probing ======
-  const CATEGORY_HINTS = [
-    'Population', 'Environment', 'Economy', 'Energy', 'Health', 'Education',
-    'Agriculture', 'Demographics', 'Finance', 'Government', 'Labor', 'Prices',
-    'Trade', 'Technology', 'Infrastructure', 'Poverty', 'Inequality', 'Other'
-  ];
-
-  function guessCategoriesFor(name) {
-    const n = String(name || '').toLowerCase();
-    const picks = [];
-    if (n.startsWith('population') || n.includes('age') || n.includes('fertility')) picks.push('Population', 'Demographics');
-    if (n.includes('co2') || n.includes('emission') || n.includes('ghg') || n.includes('climate')) picks.push('Environment', 'Energy');
-    if (n.includes('gdp') || n.includes('cpi') || n.includes('inflation') || n.includes('price')) picks.push('Economy', 'Prices', 'Finance');
-    if (n.includes('trade') || n.includes('export') || n.includes('import')) picks.push('Trade', 'Economy');
-    if (n.includes('education') || n.includes('school')) picks.push('Education');
-    if (n.includes('health') || n.includes('mortality') || n.includes('life')) picks.push('Health');
-    if (n.includes('energy') || n.includes('electric') || n.includes('power')) picks.push('Energy', 'Environment');
-    return Array.from(new Set([...picks, ...CATEGORY_HINTS]));
-  }
-
   // ====== Country code map (code → name) ======
   let CODE_TO_NAME = {};
   async function loadCountryMap() {
     try {
       const res = await fetch(COUNTRY_CODES_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json(); // { country2code: { "Aruba": "country/ABW", ... } }
-      const c2c = (data && data.country2code) || {};
+      const yamlText = await res.text();
+
+      // Simple YAML parser for the country code structure
+      // Expected format: CODE:\n- Country Name\n
       const m = {};
-      for (const [name, slug] of Object.entries(c2c)) {
-        const code = String(slug || '').split('/').pop();
-        if (code) m[code] = name;
+      const lines = yamlText.split(/\r?\n/);
+      let currentCode = null;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+
+        // Lines ending with ':' are country codes
+        if (line.match(/^[A-Z_]+:$/)) {
+          currentCode = line.slice(0, -1); // remove ':'
+        }
+        // Lines starting with '- ' are country names
+        else if (line.startsWith('- ') && currentCode) {
+          const countryName = line.slice(2).trim();
+          // Remove quotes if present
+          const cleanName = countryName.replace(/^["']|["']$/g, '');
+          m[currentCode] = cleanName;
+          currentCode = null;
+        }
       }
+
+      // Add fallbacks for common codes
       if (!m.OWID_WRL) m.OWID_WRL = 'World';
       if (!m.OWID_KOS) m.OWID_KOS = 'Kosovo';
       CODE_TO_NAME = m;
@@ -67,17 +78,44 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch(SOURCES_META_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const list = await res.json(); // array of { filename, details:{title, description, unit}, ... }
+      const data = await res.json();
+
       const map = {};
-      (Array.isArray(list) ? list : []).forEach(entry => {
-        const fn = (entry && entry.filename) ? String(entry.filename) : '';
-        if (!fn) return;
-        const key = fn.endsWith('.csv') ? fn.slice(0, -4) : fn;
-        map[key] = entry; // store whole entry; we’ll read entry.details.*
-      });
+      if (Array.isArray(data)) {
+        data.forEach(entry => {
+          const fn = (entry && entry.filename) ? String(entry.filename) : '';
+          if (!fn) return;
+          const key = fn.endsWith('.csv') ? fn.slice(0, -4) : fn;
+
+          // Check if this is the new format (title, description, unit at top level)
+          if (entry.title || entry.description || entry.unit) {
+            // New format: normalize to match expected structure
+            map[key] = {
+              filename: fn,
+              details: {
+                title: entry.title || '',
+                description: entry.description || '',
+                unit: entry.unit || ''
+              }
+            };
+          } else {
+            // Old format: has nested details object
+            map[key] = entry; // store whole entry; we'll read entry.details.*
+          }
+        });
+      } else if (data && typeof data === 'object') {
+        // Direct object mapping filename -> metadata
+        Object.entries(data).forEach(([filename, metadata]) => {
+          const key = filename.endsWith('.csv') ? filename.slice(0, -4) : filename;
+          map[key] = {
+            filename: filename,
+            details: metadata // assume metadata contains title, description, unit directly
+          };
+        });
+      }
       SERIES_META = map;
     } catch (e) {
-      console.warn('sources.json load failed; proceeding without extra details:', e);
+      console.warn('metadata.json load failed; proceeding without extra details:', e);
       SERIES_META = {};
     }
   }
@@ -100,11 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const i = parseInt(u.searchParams.get('i'), 10);
     return Number.isFinite(i) && i >= 0 ? i : 0;
   }
-  function setIndexInURL(i, replace = false) {
+  function getDatasetFromURL() {
+    const u = new URL(window.location.href);
+    const d = u.searchParams.get('d');
+    return (d && DATASETS[d]) ? d : 'test'; // default to test set
+  }
+  function setURLParams(i, dataset, replace = false) {
     const u = new URL(window.location.href);
     u.searchParams.set('i', i);
-    if (replace) history.replaceState({ i }, '', u);
-    else history.pushState({ i }, '', u);
+    u.searchParams.set('d', dataset);
+    if (replace) history.replaceState({ i, dataset }, '', u);
+    else history.pushState({ i, dataset }, '', u);
   }
   const sanitize = (str) => (str === null || str === undefined) ? '' : String(str);
 
@@ -131,21 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function fetchCSVFor(seriesName) {
-    const tryFolders = guessCategoriesFor(seriesName);
-    for (const folder of tryFolders) {
-      const url = `${TS_BASE}/${encodeURIComponent(folder)}/${encodeURIComponent(seriesName)}.csv`;
-      try {
-        const res = await fetch(url, { cache: 'no-store' });
-        if (res.ok) return { url, text: await res.text() };
-      } catch (_) {}
-    }
-    // Fallback: directly under base
+    // Direct lookup in flat directory structure
+    const url = `${TS_BASE}/${encodeURIComponent(seriesName)}.csv`;
     try {
-      const url = `${TS_BASE}/${encodeURIComponent(seriesName)}.csv`;
       const res = await fetch(url, { cache: 'no-store' });
       if (res.ok) return { url, text: await res.text() };
-    } catch (_) {}
-    throw new Error(`CSV not found for "${seriesName}"`);
+      throw new Error(`HTTP ${res.status}`);
+    } catch (err) {
+      throw new Error(`CSV not found for "${seriesName}": ${err.message}`);
+    }
   }
 
   // ====== Plotting helpers ======
@@ -289,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       console.warn(meta.details);
 
-      // Description + Unit (from sources.json)
+      // Description + Unit (from metadata.json)
       if (meta?.details?.description || meta?.details?.unit) {
         const descWrap = el('div', { class: 'tsver-series-desc', style: 'margin:.35rem 0 .25rem 0; opacity:.9' });
         if (meta.details.description) {
@@ -335,12 +373,58 @@ document.addEventListener('DOMContentLoaded', () => {
   // ====== Dataset navigation & rendering ======
   let items = [];
   let index = 0;
+  let currentDataset = 'test';
+
+  async function switchDataset(newDataset) {
+    if (!DATASETS[newDataset] || newDataset === currentDataset) return;
+
+    const status = $('tsver-status');
+    const card = $('tsver-card');
+    const nav = $('tsver-nav');
+
+    // Show loading state
+    if (card) card.style.display = 'none';
+    if (nav) nav.style.display = 'none';
+    if (status) {
+      status.style.display = 'block';
+      status.textContent = `Loading ${DATASETS[newDataset].name}...`;
+    }
+
+    try {
+      currentDataset = newDataset;
+      items = await loadJSONL(DATASETS[newDataset].url);
+      if (!items.length) throw new Error(`No items in ${DATASETS[newDataset].name}.`);
+
+      // Reset to first item of new dataset
+      index = 0;
+      if (status) status.style.display = 'none';
+      render(0);
+    } catch (err) {
+      if (status) status.textContent = `Could not load ${DATASETS[newDataset].name}. ` + (err && err.message ? err.message : '');
+      console.error(err);
+    }
+  }
 
   function attachEvents() {
     const prev = $('tsver-prev');
     const next = $('tsver-next');
+    const testLink = $('tsver-test-link');
+    const devLink = $('tsver-dev-link');
+
     if (prev) prev.addEventListener('click', () => render(index - 1));
     if (next) next.addEventListener('click', () => render(index + 1));
+
+    if (testLink) {
+      testLink.addEventListener('click', () => {
+        switchDataset('test');
+      });
+    }
+
+    if (devLink) {
+      devLink.addEventListener('click', () => {
+        switchDataset('dev');
+      });
+    }
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft')  { e.preventDefault(); if (index > 0) render(index - 1); }
@@ -349,7 +433,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('popstate', (ev) => {
       const i = ev.state && Number.isFinite(ev.state.i) ? ev.state.i : getIndexFromURL();
-      render(i);
+      const d = ev.state && ev.state.dataset ? ev.state.dataset : getDatasetFromURL();
+      if (d !== currentDataset) {
+        switchDataset(d).then(() => render(i));
+      } else {
+        render(i);
+      }
     });
   }
 
@@ -398,25 +487,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const prev = $('tsver-prev');
     const next = $('tsver-next');
     const counter = $('tsver-counter');
+    const testLink = $('tsver-test-link');
+    const devLink = $('tsver-dev-link');
+
     if (prev) prev.disabled = (i === 0);
     if (next) next.disabled = (i >= items.length - 1);
     if (counter) counter.textContent = `${i + 1} / ${items.length}`;
+
+    // Update dataset link styling
+    if (testLink) {
+      testLink.className = currentDataset === 'test' ? 'active' : '';
+    }
+    if (devLink) {
+      devLink.className = currentDataset === 'dev' ? 'active' : '';
+    }
 
     const card = $('tsver-card');
     const nav = $('tsver-nav');
     if (card) card.style.display = '';
     if (nav) nav.style.display = 'flex';
 
-    setIndexInURL(i, /*replace=*/true);
+    setURLParams(i, currentDataset, /*replace=*/true);
   }
 
   // ====== Init ======
   (async function init() {
     const status = $('tsver-status');
+
     try {
       await Promise.all([loadCountryMap(), loadSourcesMeta()]);
-      items = await loadJSONL(DATA_URL);
-      if (!items.length) throw new Error('No items in dataset.');
+
+      // Get initial dataset from URL or default to test
+      const initialDataset = getDatasetFromURL();
+      currentDataset = initialDataset;
+
+      items = await loadJSONL(DATASETS[initialDataset].url);
+      if (!items.length) throw new Error(`No items in ${DATASETS[initialDataset].name}.`);
       if (status) status.style.display = 'none';
       attachEvents();
       render(getIndexFromURL());
